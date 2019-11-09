@@ -12,9 +12,6 @@ class LogInButton extends Component {
             sender:"",
             amount:"",
             receiver:"",
-            networkName:"",
-            networkId:"",
-            status:"",
             isShow: false
         }
         this.handleChange = this.handleChange.bind(this);
@@ -23,20 +20,16 @@ class LogInButton extends Component {
     }
 
     componentWillMount(){
-        window.ethereum.enable()
-        const networkNameLookup = {
-            1: 'mainnet',
-            3: 'ropsten',
-            4: 'rinkeby',
-            5: 'goerli',
-            42: 'kovan',
-        };
-            let address = window.web3.eth.accounts[0];
-            let networkId = window.web3.version.network;
-            let networkName = networkNameLookup[networkId] || `unknown(${networkId})`;
-            console.log(address,networkId, networkName)
-            this.setState({sender: address, networkName: networkName, networkId})
-    }
+        window.web3.eth.getAccounts((x, accounts) => {
+            if (accounts !== null) {
+              //console.log("signed in with", accounts[0])
+              this.setState({
+                ...this.state,
+                sender: accounts[0]
+              });
+            }
+          });
+        }
     handleChange(e){
         e.preventDefault();
         this.setState({ [e.target.name]: e.target.value });
@@ -94,13 +87,6 @@ class LogInButton extends Component {
                                     Connect with MetaMask to send ethers!
                                 </h3>
                                 <Container>
-                                <div>
-                                    <span>Your address: {this.state.sender}</span>
-                                    <div>Your network ID: {this.state.networkId}</div>
-                                    <div>Your network Name: {this.state.networkName}</div>
-                                </div>
-                                </Container>
-                                <Container>
                                 <Form onSubmit={e => this.handleClick(e)}>
                                     <Form.Group as={Row}>
                                         <Form.Label column sm="2">
@@ -120,10 +106,10 @@ class LogInButton extends Component {
                                     </Form.Group>
                                     <Form.Group as={Row}>
                                         <Form.Label column sm="2">
-                                        Value (in eth)
+                                        Amount
                                         </Form.Label>
                                         <Col sm="2">
-                                        <Form.Control name="amount" placeholder="amount" value={this.state.amount} onChange={this.handleChange}/>
+                                        <Form.Control name="amount" placeholder="in eth" value={this.state.amount} onChange={this.handleChange}/>
                                         </Col>
                                     </Form.Group>
                                     <Button variant="outline-primary" onClick={this.handleClick}>Send</Button>

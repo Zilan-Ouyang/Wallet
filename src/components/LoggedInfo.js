@@ -16,6 +16,6 @@ import {useWeb3} from '../useWeb3';
                   </div>)
         }
     }
-   
+
 
 export default LoggedInfo;
