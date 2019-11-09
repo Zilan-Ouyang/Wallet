@@ -7,18 +7,18 @@ class Home extends Component {
     render() {
         return (
             <div>
-               <Image src="assets/wallet-banner-800x400.jpg" className="header-image" />
-                <Container>
-                    <Row><h1>Your Dashboard</h1></Row>
-                </Container>
-                <hr>
-                </hr>
-                <Container>
-                   <GenerateWallet/>
-               </Container>
-                <Container className="last-container">
-                    <LogInButton/>
-                </Container>
+                <Image src="assets/wallet-banner-800x400.jpg" className="header-image" />
+                    <Container>
+                        <Row><h1>Your Dashboard</h1></Row>
+                    </Container>
+                    <hr>
+                    </hr>
+                    <Container>
+                        <GenerateWallet/>
+                    </Container>
+                    <Container className="last-container">
+                        <LogInButton/>
+                    </Container>
                 <hr>
                 </hr>
                 <Container>
