@@ -1,0 +1,29 @@
+.navigation-container {
+  height: 20%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto repeat(2, 1fr) auto;
+  align-items: center;
+  margin: 3rem auto 0 auto;
+
+  .pythia-logo {
+    background: url('../assets/PythiaLogoi.svg') no-repeat;
+    background-size: 100%;
+    height: 4rem;
+    width: 4rem;
+  }
+
+  .navigation-title {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-left: 0.5rem;
+  }
+
+  .navigation-user {
+    justify-self: right;
+    margin-right: 0.4rem;
+  }
+  .navigation-user-address {
+    justify-self: right;
+  }
+}

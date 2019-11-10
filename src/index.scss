@@ -11,8 +11,14 @@ body,
 p,
 h4,
 li {
-  margin: 0;
+  margin: 0 10rem;
   padding: 0;
+  color: #020543;
+}
+
+div,
+p {
+  line-height: 1.5;
 }
 
 body {

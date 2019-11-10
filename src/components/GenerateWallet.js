@@ -1,62 +1,30 @@
-import React, { Component } from 'react';
-import { Button, Jumbotron, Container, Row, Col, OverlayTrigger, Card } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import Modal from '@material-ui/core/Modal';
 import { ethers } from 'ethers';
-export default class GenerateWallet extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      newWallet: '',
-      privateKey: '',
-      mnemonic: '',
-      showCard: false
-    };
-    this.handleClick = this.handleClick.bind(this);
-    this.walletCard = this.walletCard.bind(this);
-  }
-  handleClick(e) {
+import WalletCard from './WalletCard';
+
+export default function GenerateWallet() {
+  const [newWallet, setNewWallet] = useState('');
+  const [privateKey, setPrivateKey] = useState('');
+  const [mnemonic, setMnemonic] = useState('');
+  const [showCard, setShowCard] = useState(false);
+
+  const handleClick = e => {
     e.preventDefault();
     let randomWallet = ethers.Wallet.createRandom();
-    console.log(randomWallet.address, randomWallet.privateKey, randomWallet.mnemonic);
-    this.setState({
-      newWallet: randomWallet.address,
-      privateKey: randomWallet.privateKey,
-      mnemonic: randomWallet.mnemonic,
-      showCard: !this.state.showCard
-    });
-  }
-  walletCard() {
-    return (
-      <Card>
-        <Card.Body>
-          <div>
-            <h6>Public Adress:</h6>
-            {this.state.newWallet}
-          </div>
-        </Card.Body>
-        <Card.Body>
-          <div>
-            <h6>Private Key:</h6>
-            {this.state.privateKey}
-          </div>
-        </Card.Body>
-        <Card.Body>
-          <div>
-            <h6>Mnemonic:</h6>
-            {this.state.mnemonic}
-          </div>
-        </Card.Body>
-      </Card>
-    );
-  }
-  render() {
-    return (
-      <>
-        {/* <OverlayTrigger trigger="click" placement="right" overlay={this.popover}>  */}
-        <Button variant="outline-primary" onClick={this.handleClick}>
-          Generate New Wallet
-        </Button>
-        {this.state.showCard ? this.walletCard() : null}
-      </>
-    );
-  }
+    setNewWallet(randomWallet.address);
+    setPrivateKey(randomWallet.privateKey);
+    setMnemonic(randomWallet.mnemonic);
+    setShowCard(showCard);
+  };
+
+  return (
+    <>
+      <Button variant="outline-primary" onClick={e => handleClick(e)}>
+        Generate New Wallet
+      </Button>
+      {showCard && <WalletCard newWallet={newWallet} privateKey={privateKey} mnemonic={mnemonic} />}
+    </>
+  );
 }
